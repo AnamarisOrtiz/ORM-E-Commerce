@@ -70,8 +70,6 @@ router.post('/', (req, res) => {
     }
   */
   
- 
-    
       Product.create(req.body)
       .then((product) => {
         // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -101,7 +99,7 @@ router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
-      product_id: req.params.product_id,
+      id: req.params.id,
     },
   })
     .then((product) => {
@@ -136,7 +134,7 @@ router.put('/:id', (req, res) => {
       return res.json(product);
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       res.status(400).json(err);
     });
 });

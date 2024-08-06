@@ -86,24 +86,24 @@ router.put('/:id', (req, res) => {
 
 
 
-  // delete a category by its `id` value
-  router.delete('/:id', (req, res) => {
-    Category.destroy({
-      where: {
-        id: req.params.id,
-      },
+// delete a category by its `id` value
+router.delete('/:id', (req, res) => {
+  Category.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((delCategory) => {
+      if (!delCategory) {
+        return res.status(404).json({ msg: 'No such category found' });
+      }
+      res.json(delCategory);
     })
-      .then((delCategory) => {
-        if (!delCategory) {
-          return res.status(404).json({ msg: 'No such category found' });
-        }
-        res.json(delCategory);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ msg: 'An error occurred', err });
-      });
-  });
-  
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ msg: 'An error occurred', err });
+    });
+});
+
 
 module.exports = router;
